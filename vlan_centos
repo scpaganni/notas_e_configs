@@ -1,0 +1,57 @@
+Criar Vlan(s) no Centos 7 e configurar DHCP com Interfaces Virtuais:
+
+Verificar se o módulo 802.1q está ativo:
+# lsmod | grep 8021q
+
+Criar as interface virtuais, para cada VLAN é necessário criar um arquivo correspondente juntando o ID da interface mais o ID da VLAN:
+
+cp /etc/sysconfig/network-scripts/ifcfg-enp0s3 /etc/sysconfig/network-scripts/ifcfg-enp0s3.10
+
+Se, por exemplo, a interface de rede for <enp0s3> e a Vlan criada for a 10, a configuração ficará da seguinte forma:
+
+# VLAN 10 
+DEVICE=enp0s3.10
+BOOTPROTO=static
+ONBOOT=yes
+IPADDR=192.168.10.1
+NETMASK=255.255.255.0
+USERCTL=no
+NETWORK=192.168.10.0
+VLAN=yes
+
+# VLAN 20
+DEVICE=eth0.20
+BOOTPROTO=static
+ONBOOT=yes
+IPADDR=192.168.20.254
+NETMASK=255.255.255.0
+USERCTL=no
+NETWORK=192.168.20.0
+VLAN=yes
+
+Modificar o arquivo principal de configurar da interface: Supondo que seja enp0s3, a configuração ficará assim:
+
+# vim /etc/sysconfig/network-scripts/ifcfg-enp0s3
+TYPE="Ethernet"
+BOOTPROTO="none"
+NAME="enp0s3"
+DEVICE="enp0s3"
+ONBOOT="yes"
+
+Restartar o serviço de rede:
+# systemctl restart network
+
+Criar os escopos necessários no /etc/dhcp/dhcpd.conf
+
+
+
+Fazer a liberação no firewall:
+# firewall-cmd --add-service=dhcp --permanent
+
+Adicionar no arquivo /etc/sysconfig/dhcpd a seguinte linha:
+DHCPDARGS="enp0s3.10 enp0s3.20";
+
+
+
+
+
