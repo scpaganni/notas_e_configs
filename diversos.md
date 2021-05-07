@@ -18,6 +18,8 @@ Para restaurar:
 
 `# tar -xf backups.tar --directory /`
 
+O comando `tar` apenas empacota arquivos, não os comprime: Para comprimir podemos usar o parâmetro `-z` (comprimi com gzip); ou `-j` (comprimi com bzip2).
+
 Baixar vídeo em formato ogg usando o youtube-dl:
 
 `alias ogg='youtube-dl --extract-audio --audio-format vorbis'`
