@@ -128,3 +128,14 @@ sudo apt-get install libnss3-1d:i386 libqt4-qt3support:i386 libssl1.0.0:i386 lib
 * Os arquivos serão copiados. Caso haja algum pacote/aplicativo do Gnu Linux que necessite ser atualizado, não se preocupe, o instalador fará isso automaticamente.
 * Na sequência o sistema informará que será necessário criar um link simbólico chamado “packettracer” para que o Packet Tracer possa ser iniciado facilmente. Pressione Y.
 * Por fim, aparecerá uma mensagem informando que o Packet Tracer 7.1 foi instalado com sucesso.
+
+
+# Habilitar interface bridge no boxes (Fedora 35)
+
+Para obter a interface de rede `virbr0` é necessário a instalação do pacote `libvirt-daemon-config-network`
+
+`sudo dnf install libvirt-daemon-config-network`
+
+e habilitar o socket de rede
+
+`sudo systemctl enable --now virtnetworkd-ro.socket`
