@@ -139,3 +139,13 @@ Para obter a interface de rede `virbr0` é necessário a instalação do pacote 
 e habilitar o socket de rede
 
 `sudo systemctl enable --now virtnetworkd-ro.socket`
+
+# Comandos para localização de arquivos
+
+`locate` `which` `whereis` `find`
+
+* O comando `whereis` encontra apenas arquivos executáveis, arquivos de documentação e código fonte
+
+# Comandos para manipulção de textos
+
+`grep``tee` `sed` `awk`
