@@ -149,3 +149,13 @@ e habilitar o socket de rede
 # Comandos para manipulção de textos
 
 `grep``tee` `sed` `awk`
+
+# Testar o arquivo de configuração com netplan
+A partir do Ubuntu 20.04 alterar a configuração de rede envolve editar a configuração YAML do arquivo localizado em `/etc/netplan`. Como boa prática, devemos sempre fazer um backup do arquivo de configuração atual
+antes de fazer alterações.
+
+`sudo netplan try`
+
+Para aplicar as confirações é preciso executar
+
+`sudo netplan apply`
