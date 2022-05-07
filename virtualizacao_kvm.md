@@ -105,10 +105,112 @@ Para obter uma lista dos sistemas operacionais convidados compatíveis, execute 
 
 `# osinfo-query os`
 
+Para exportar a configuração de rede padrão do kvm para um arquivo xml:
+
+`virsh net-dumpxml default > labredes.xml`
+
+```
+<network>
+  <name>default</name>
+  <uuid>01e3bc5d-7634-4692-8e46-a621a6aed8d5</uuid>
+  <forward mode='nat'>
+    <nat>
+      <port start='1024' end='65535'/>
+    </nat>
+  </forward>
+  <bridge name='virbr0' stp='on' delay='0'/>
+  <mac address='52:54:00:8b:59:b4'/>
+  <ip address='192.168.122.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.122.2' end='192.168.122.254'/>
+    </dhcp>
+  </ip>
+</network>
+```
+
+Podemos também criar uma nova rede editando esse arquivo: basta renomear a rede, gerar um novo uuid e mac:
+
+```
+<network>
+  <name>labredes</name> 
+  <uuid>6b82f1b8-9b01-46c4-9695-1c0205d960dc</uuid>
+  <forward mode='nat'>
+    <nat>
+      <port start='1024' end='65535'/>
+    </nat>
+  </forward>
+  <bridge name='virbr1' stp='on' delay='0'/>
+  <mac address='00:E0:4C:0B:94:77'/>
+  <ip address='192.168.2.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.2.2' end='192.168.2.254'/>
+    </dhcp>
+  </ip>
+</network>
+```
+
+Importando o novo arquivo:
+
+`# virsh net-define labredes.xml`
+
+Startar a nova rede:
+
+`# virsh net-start labredes`
+
+Para disponibilizar permanentemente:
+
+`# virsh net-autostart labredes`
+
+Verificar se as redes estão carregadas:
+
+`# virsh net-list`
+
+É possível também criar uma rede isolada, exemplo:
+
+```
+<network>
+  <name>scpaganni</name>
+  <uuid>3b5df993-e2d8-415f-8af7-680af5c108ef</uuid>
+  <bridge name='virbr2' stp='on' delay='0'/>
+  <mac address='00:16:3e:0b:5d:85'/>
+  <domain name='scpaganni'/>
+  <ip address='192.168.3.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.3.2' end='192.168.3.254'/>
+    </dhcp>
+  </ip>
+</network>
+```
+
+Importando o novo arquivo:
+
+`# virsh net-define scpaganni.xml`
+
+Startar a nova rede:
+
+`# virsh net-start scpaganni`
+
+Para disponibilizar permanentemente:
+
+`# virsh net-autostart scpaganni`
+
+Verificar se as redes estão carregadas:
+
+`# virsh net-list`
+
+Ao abir o virt manager, temos todas as redes listadas que criamos
+
+![Imgur](https://i.imgur.com/ALzs8jI.png)
+
+Com a máquina virtual ligada podemos anexar uma interface de rede a ela, informando qual rede será usada:
+
+`# virsh attach-interface --domain AlmaLinux --source scpaganni --type network --model virtio --config --live`
+
 #### Leituras
+
 
 https://www.redhat.com/pt-br/topics/virtualization/what-is-KVM#o-que-%C3%A9-kvm
 
 https://wiki.debian.org/KVM
 
-https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-virtualization/
+https://docsdoraproject.org/en-US/quick-docs/getting-started-with-virtualization/
