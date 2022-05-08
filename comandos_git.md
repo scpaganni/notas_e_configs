@@ -195,3 +195,19 @@ Para ver todos os branches que contém trabalho que você ainda não fez o merge
 ```
 git branch --no-merged
 ```
+
+Adicionar github token no terminal
+
+```
+git remote add origin https://[USERNAME]:[NEW TOKEN]@github.com/[USERNAME]/[REPO].git
+```
+
+```
+git remote set-url origin https://[USERNAME]:[NEW TOKEN]@github.com/[USERNAME]/[REPO].git
+```
+
+Fazer push para o repositório remoto usando o token:
+
+```
+git remote set-url origin https://<githubtoken>@github.com/<username>/<repositoryname>.git
+```
