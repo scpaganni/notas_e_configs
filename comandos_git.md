@@ -209,5 +209,5 @@ git remote set-url origin https://[USERNAME]:[NEW TOKEN]@github.com/[USERNAME]/[
 Fazer push para o repositório remoto usando o token:
 
 ```
-git remote set-url origin https://<githubtoken>@github.com/<username>/<repositoryname>.git
+git push https://[GITHUB TOKEN]@github.com/[USERNAME]/[REPO].git
 ```
