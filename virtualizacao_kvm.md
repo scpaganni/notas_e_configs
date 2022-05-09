@@ -1,16 +1,13 @@
 # [ EM CONSTRUÇÃO ]
+
 #### Recursos usados para virtualização no Linux
 
 - **kvm**: o KVM consiste de um módulo de kernel carregável, `kvm.ko`, e requer uma CPU com extensões de virtualização, encontradas na maioria das CPUs. Essas extensões são chamadas de Intel VT ou AMD-V. Ele é uma acelerador ou ativador dessas extensões de virtualização fornecidas pelo processador para que sejam fortemente acopladas à arquitetura da CPU.
-
-- **qemu**: Para emulações de E/S, o KVM usa um software de usuário, QEMU; este é um programa userland que faz emulação de hardware. O QEMU emula o processador e uma longa lista de dispositivos periféricos, 
-como disco, rede, VGA, PCI, USB, portas seriais/paralelas e assim por diante para construir uma peça completa de hardware virtual no qual o sistema operacional convidado pode ser 
-instalado. Esta emulação é alimentada por KVM.
-
+- **qemu**: Para emulações de E/S, o KVM usa um software de usuário, QEMU; este é um programa userland que faz emulação de hardware. O QEMU emula o processador e uma longa lista de dispositivos periféricos,
+  como disco, rede, VGA, PCI, USB, portas seriais/paralelas e assim por diante para construir uma peça completa de hardware virtual no qual o sistema operacional convidado pode ser
+  instalado. Esta emulação é alimentada por KVM.
 - **libvirt**: é uma API de código aberto que fornece um kit de ferramentas para gerenciar plataformas de virtualização: KVM, Xen, LXC, VMWare ESX, Virtuozzo, etc.
-
 - **virt-manager**: o `virt-manager` é uma interface gráfica para gerenciar máquinas virtuais por meio da `libvirt`.
-
 - **virsh**: interface de linha de comando para a `libvirt`.
 
 Para verificar se você tem suporte à CPU, execute o seguinte comando:
@@ -46,7 +43,6 @@ Neste exemplo temos uma iso do AlmaLinux em `/var/lib/libvirt/images/AlmaLinux-8
 `# virt-install --virt-type=kvm --name=AlmaLinux --vcpus=1 --memory=2048 --os-variant=rhel8.5 --cdrom=/var/lib/libvirt/images/AlmaLinux-8.5-x86_64-minimal.iso --network=default --disk size=20 --graphics=vnc`
 
 Podemos também fazer uma instalação utilizando um arquivo `kickstart`. No exemplo abaixo pegamos o arquivo `kickstart` gerado na instalação anterior, colocamos o arquivo num servidor web e fizemos algumas alterações para automatizar o processo.
-
 
 ```conf
 # Arquivo kickstart usado para instalação
@@ -208,9 +204,72 @@ Com a máquina virtual ligada podemos anexar uma interface de rede a ela, inform
 
 #### Leituras
 
-
 https://www.redhat.com/pt-br/topics/virtualization/what-is-KVM#o-que-%C3%A9-kvm
 
 https://wiki.debian.org/KVM
 
 https://docsdoraproject.org/en-US/quick-docs/getting-started-with-virtualization/
+
+Preparando uma máquina virtual como um template.
+
+`# virt-syspre -d [dominio]`
+
+Renomeando um VM
+
+`# virsh domrename [dominio] [novo_dominio]`
+
+Para exportar uma VM é necessário:
+
+1. Exportar o arquivo de configuração da VM
+
+`# virsh dumpxml [dominio] > arquivo.xml`
+
+2. Copiar a imagem do disco da VM para outro local para ser restaurada depois
+
+`# cp /var/lib/libvirt/images/[dominio].qcow2 /path/de/backup`
+
+Para excluir uma VM com todos os storages e snapshots associados a ela:
+
+`# virsh undefine [dominio] --managed-save --remove-all-storage --wipe-storage --snapshots-metadata --nvram`
+
+Para importar um VM é necessário:
+
+1. Importar o arquivo de configuração da VM
+
+`# virsh define --file arquivo.xml`
+
+2. Copiar o disco da VM para o diretório especificado na seção <disk> do arquivo.xml
+
+```
+# virsh dumpxml [dominio] | grep -i "source"
+      <source file='/var/lib/libvirt/images/[dominio].qcow2'/>
+```
+
+`# cp /path/de/backup/[dominio].qcow2 /var/lib/libvirt/images/[dominio].qcow2`
+
+Criar um snapshot de uma VM
+
+`# virsh snapshot-create-as --domain [dominio] --name [nome_snapshot]`
+
+Listar o snapshot de uma VM:
+
+`# virsh snapshot-list --domain [dominio]`
+
+Visualizar informações de um snapshot:
+
+`# virsh snapshot-info --domain [dominio] --snapshotname [nome_snapshot]`
+
+Restaurando um snapshot:
+
+`# virsh snapshot-revert --domain [dominio] --snapshotname [nome_snapshot]
+`
+
+Removendo um snapshot:
+
+`# virsh snapshot-delete --domain [dominio] --snapshotname [nome_snapshot]
+
+A clonagem de VMs pode ser feita de três formas:
+
+1. `# virt-clone --original [dominio] --auto-clone`
+2. `# virt-clone --original [dominio]  --name [novo_dominio] --auto-clone`
+3. `# virt-clone --original [dominio]  --name [novo_dominio] --file /var/lib/libvirt/images/[nome_disco].qcow2`
