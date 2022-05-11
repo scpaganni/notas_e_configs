@@ -1,5 +1,3 @@
-# [ EM CONSTRUÇÃO ]
-
 #### Recursos usados para virtualização no Linux
 
 - **kvm**: o KVM consiste de um módulo de kernel carregável, `kvm.ko`, e requer uma CPU com extensões de virtualização, encontradas na maioria das CPUs. Essas extensões são chamadas de Intel VT ou AMD-V. Ele é uma acelerador ou ativador dessas extensões de virtualização fornecidas pelo processador para que sejam fortemente acopladas à arquitetura da CPU.
