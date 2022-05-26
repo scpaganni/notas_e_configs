@@ -78,3 +78,45 @@ Criando um container para fazer backup de um volume em outro lugar:
 
 `docker container run -ti --mount type=volume,src=labredes,dst=/site --mount type=bind,src=/home/sergio/Documentos/backup/,dst=/backup debian tar -cvf /backup/site.tar /site`
 
+#### Exemplos de Dockerfile
+
+```
+# Instalação do Apache 
+FROM debian
+
+RUN apt-get update && apt-get install -y apache2 && apt-get clean
+ENV APACHE_LOCK_DIR="/var/lock"
+ENV APACHE_PID_FILE="/var/run/apache2.pid"
+ENV APACHE_RUN_USER="www-data"
+ENV APACHE_RUN_GROUP="www-data"
+ENV APACHE_LOG_DIR="/var/log/apach2"
+
+COPY /site/. /var/www/html
+
+LABEL description="WebServer"
+
+WORKDIR /var/www/html
+
+VOLUME /var/www/html
+EXPOSE 80
+
+ENTRYPOINT ["/usr/sbin/apachectl"]
+CMD ["-D", "FOREGROUND"]
+```
+
+Criando um registry local
+
+`docker container run -d -p 5000:5000 --name registry registry:2`
+
+Colocando tag no container
+
+`docker image tag apache localhost:5000/myapache:1.0`
+
+Salvando a imagem do apache em um registry local
+
+` docker image push localhost:5000/myapache:1.0 `
+
+Para recuperar a imagem salva
+
+` docker image pull localhost:5000/myapache:1.0`
+
