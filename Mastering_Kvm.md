@@ -1,4 +1,4 @@
-﻿# Tipos de virtualização
+﻿### Tipos de virtualização
 
 - Virtualização de desktops 
 - Virtualização de servidor
@@ -35,11 +35,11 @@ Atualmente existem três projetos de núvem de código aberto que usam a virtual
 - CloudStack
 - Eucalyptus
 
-#### Requisitos de hardware para virtualização
+### Requisitos de hardware para virtualização
 
-#### Requisitos de software para virtualização
+### Requisitos de software para virtualização
 
-## Redes Libvirt
+### Redes Libvirt
 
 O Linux tem muitos tipos diferentes de interfaces de rede, alguns dos quais são o seguinte:
 
@@ -58,7 +58,7 @@ Temos também três modos básicos de rede libvirt:
 - roteada: significa que a máquina virtual está diretamente ligada a rede física por meio de um switch virtual
 - isolado: a máquina virtual está ligada a um switch virtual porém não há tráfego de rede para fora, as máquinas não se comunicam nem com o host nem com a internet
 
-#### Usando Redes TUN/TAP
+### Usando Redes TUN/TAP
 
 Para uma virtualização eficiente alguns arquivos devem existir no host físico:
 
@@ -66,13 +66,13 @@ Para uma virtualização eficiente alguns arquivos devem existir no host físico
 - /dev/vhost-net: server como interface para configurar a instância do vhost-net. Não ter este dispositivo reduz o desempenho da máquina virtual
 - /dev/net/tun: usado para criar o dispositivo TUN/TAP para facilitar a conectividade de rede para uma máquina virtual.
 
-O que acontece quando precisamos que nossa comunicação ocorro no espaçao do usuário?
+O que acontece quando precisamos que nossa comunicação ocorra no espaçao do usuário?
 
 É aqui que entram os dispositivos TUN/TAP, fornecendo fluxo de pacotes para
 programas de espaço do usuário.
 O TUN emula um dispositivo L3 criando um túnel de comunicação, algo como um túnel ponto aponto. Ele é ativado quando o driver tuntap é configurado no modo tun.
 Ao ativá-lo, quaisquer dados recebidos de um descritor (o aplicativo que o configurou) serão dados na forma de pacotes IP regulares (como o caso mais usado). Além disso, quando você enviadados, eles são gravados no dispositivo TUN como pacotes IP normais.
-Esse tipo de interface às vezes é usado em testes, desenvolvimento e depuração para finsde simulação.
+Esse tipo de interface às vezes é usado em testes, desenvolvimento e depuração para fins de simulação.
 A interface TAP basicamente emula um dispositivo Ethernet L2. Ele é ativado quando o drivertuntap é configurado no modo de toque. Ao ativá-lo, diferentemente do que acontece com a interface TUN (Camada 3), você obtém pacotes Ethernet brutos de Camada 2, incluindo ARP/ Pacotes RARP e tudo mais. Basicamente, estamos falando de uma conexão Ethernet de Camada 2 'virtualizada.
 
 Esses conceitos são importantes porque usando esses tipos de configurações podemos criar conexões do host para uma máquina virtual sem criar um switch libvirt. Vamos ver como ocorre no backend essa configuração.
@@ -119,13 +119,13 @@ Remover a bridge *teste*:
 
 Essas são as mesmas etapas que o libvirt executou no back-end ao habilitar ou desabilitar a rede para uma máquina virtual.
 
-# Macvtap
+### Macvtap
 
 Este módulo funciona como uma combinação dos módulos tap e macvlan. Já explicamos o que o módulo tap faz. O módulo macvlan nos permite criar redes virtuais que são fixadas em uma interfacede rede física (geralmente, chamamos essa interface de interface ou dispositivo inferior). A combinação de tap e macvlan nos permite escolher entre quatro modos diferentes de operação, chamados Virtual Ethernet Port Aggregator (VEPA), bridge, private e passthru.
 
 Para configuração de rede em grandes ambientes temos o open vswitch.
 
-# Armazenamento libvirt
+### Armazenamento libvirt
 
 Temos três maneiras mais comuns de conseguir armazenamento:
 
@@ -253,9 +253,9 @@ A eficiência é comprometida por dois motivos:
 
 Existem três possibilidades para iSCSI no Linux em termos de qual back-end de armazenamento usar.Poderíamos usar um sistema de arquivos comum (como XFS), um dispositivo de bloco (um disco rígido) ou LVM.
 
-## [FAZER LAB PAG 146 A 200]
+### [FAZER LAB PAG 146 A 200]
 
-## Gluster e Ceph como backend de armazenamento para KVM
+### Gluster e Ceph como backend de armazenamento para KVM
 
 - Gluster: Gluster é um sistema de arquivos distribuído que é frequentemente usado para cenários de alta disponibilidade. Suasprincipais vantagens em relação a outros sistemas de arquivos são o fato de que é escalável, pode usar replicação esnapshots, pode funcionar em qualquer servidor e pode ser usado como base para armazenamento compartilhado—porexemplo, via NFS e SMB. Ele foi desenvolvido por uma empresa chamada Gluster Inc., que foi adquirida pela RedHatem 2011. No entanto, ao contrário do Ceph, é um serviço de armazenamento de arquivos, enquanto o Ceph oferecearmazenamento baseado em blocos e objetos. Armazenamento baseado em objeto para dispositivos baseados embloco significa armazenamento binário direto, diretamente para um LUN. Não há sistemas de arquivos envolvidos, o queteoricamente significa menos sobrecarga, pois não há sistema de arquivos, tabelas de sistema de arquivos e outrasconstruções que possam retardar o processo de E/S.
 
