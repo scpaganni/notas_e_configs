@@ -156,6 +156,10 @@ antes de fazer alterações.
 
 `sudo netplan try`
 
-Para aplicar as confirações é preciso executar
+Para aplicar as configurações é preciso executar
 
 `sudo netplan apply`
+
+Após criar um template de máquina virtual com `# virt-sysprep -d [dominio] as chaves em `/etc/ssh` são excluídas. Para recriar as chaves é só fazer o seguinte comando:
+
+`# ssh-keygen -A -N ''`
