@@ -150,3 +150,50 @@ Observe que foi criado o seguite link `Created symlink /etc/systemd/system/httpd
 Para visualizar todo arquivo de configuração de um serviço podemos usar
 
 `# systemctl cat apache2`
+
+### Targets do systemd
+
+No systemd, um destino é umaunidade que agrupa outras unidades do systemd para uma finalidade específica. As unidades que um destinopode agrupar incluem serviços, caminhos, pontos de montagem, soquetes e até outros destinos.
+
+Para verificar os targets ativos no sistema
+
+`$ systemctl list-units -t target`
+
+Para ver os targets inativos
+
+`$ systemctl list-units -t target --state inactive`
+
+Para verificar as dependências de um target, por exemplo, _graphical.target_
+
+`# systemctl list-dependencies graphical.target`
+
+As opções _--after__ e __--before__ mostram as dependências que devem ser iniciadas antes ou depois do início de um destino. A opção _--after_ indica que o destino deve iniciar após as dependências listadas, e a opção _--before_ indica que o destino deve ser iniciado antes das dependências listadas.
+
+`# systemctl list-dependencies --after network.target`
+`# systemctl list-dependencies --before network.target`
+
+Para ver qual _target_ está setado como padrão
+
+`# systemctl get-default`
+
+Setando um novo _target_
+
+`# systemctl set-default multi-user.target`
+
+`# systemctl set-default graphical.target`
+
+Para alterar temporariamente um _target_
+
+`# systemctl isolate multi-user.target`
+`# systemctl isolate graphical.target`
+
+### Timers do systemd
+Os _timers_ são semelhantes aos _cron jobs_: automatizam tarefas de rotina. Ao instalar o sistema, por padrão, será criado alguns temporizadores ativos que cuidam de determinadas tarefas administrativas.
+
+`# systemctl list-unit-files -t timer`
+
+`# systemctl list-timers`
+
+Para verificar as dependências de um _timer_
+
+`# systemctl list-dependencies logrotate.timer`
