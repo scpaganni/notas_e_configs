@@ -80,7 +80,7 @@ Para habilitar na inicialização e startar um serviço:
 
 `# systemctl enable --now httpd`
 
-Quando habilitamos um serviço é criado um link simbólico dentro de `/etc/systemd/system/multi-user.target.wants`que aponta para o arquivo _httpd.service_.
+Quando habilitamos um serviço é criado um link simbólico dentro de `/etc/systemd/system/multi-user.target.wants` que aponta para o arquivo _httpd.service_.
 
 Para desabilitar um serviço da inicialização:
 
@@ -131,13 +131,15 @@ Linha acrescentada na seção [Install] do arquivo `/etc/systemd/system/apache.s
 [Install]
 Alias=httpd.service
 
-Sempre que você modificar ou adicionar um arquivo de serviço, precisará fazer um `# systemctl daemon-reload`
+Sempre que você modificar ou adicionar um arquivo de serviço, precisará fazer um 
+
+`# systemctl daemon-reload`
 
 Agora é preciso desabilitar o serviço e habilita-lo novamente:
 
 `# systemctl disable apache2`
 
-```
+```shell
 # systemctl enable apache2
 Synchronizing state of apache2.service with SysV service script with /lib/systemd/systemd-sysv-install.
 Executing: /lib/systemd/systemd-sysv-install enable apache2
@@ -167,9 +169,10 @@ Para verificar as dependências de um target, por exemplo, _graphical.target_
 
 `# systemctl list-dependencies graphical.target`
 
-As opções _--after__ e __--before__ mostram as dependências que devem ser iniciadas antes ou depois do início de um destino. A opção _--after_ indica que o destino deve iniciar após as dependências listadas, e a opção _--before_ indica que o destino deve ser iniciado antes das dependências listadas.
+As opções _--after_ e _--before_ mostram as dependências que devem ser iniciadas antes ou depois do início de um destino. A opção _--after_ indica que o destino deve iniciar após as dependências listadas, e a opção _--before_ indica que o destino deve ser iniciado antes das dependências listadas.
 
 `# systemctl list-dependencies --after network.target`
+
 `# systemctl list-dependencies --before network.target`
 
 Para ver qual _target_ está setado como padrão
@@ -185,6 +188,7 @@ Setando um novo _target_
 Para alterar temporariamente um _target_
 
 `# systemctl isolate multi-user.target`
+
 `# systemctl isolate graphical.target`
 
 ### Timers do systemd
@@ -202,10 +206,12 @@ Criar um _timer_ é um processo em dois estágios: Primeiro é preciso criar o s
 
 Exemplo: criar um serviço de backup do diretório pessoal do usuário em `/mnt/backup` que será executado todos os dias as 13 horas.
 
-`$ systemctl edit --user --full --force backup.service` isso vai criar um arquivo em `~/.config/systemd/user/backup.service`
+`$ systemctl edit --user --full --force backup.service` 
 
-```
-Unit]
+Isso vai criar um arquivo em `~/.config/systemd/user/backup.service`
+
+```conf
+[Unit]
 Description= Fazer backup do diretório pessoal
 
 [Service]
@@ -216,6 +222,7 @@ ExecStart=/usr/bin/rsync -a /home/usuario /mnt/backup
 Confirmar que o serviço pode ser executado manualmente
 
 `$ systemctl daemon-reload --user usuario@host`
+
 `$ systemctl start --user backup.service`
 
 Se for executado com sucesso, vai ter um diretório _usuario_ em /mnt/backup/:
@@ -239,12 +246,13 @@ WantedBy=timer.target default.target
 Habilitar o serviço
 
 `$ systemctl daemon-reload --user`
+
 `$ systemctl enable --user --now backup.timer`
 
 Verificar o timer ativo para o usuário
 
-```
-systemctl list-timers --user
+```bash
+$ systemctl list-timers --user
 NEXT                        LEFT     LAST PASSED UNIT         ACTIVATES
 Wed 2022-06-08 13:00:00 -04 14h left n/a  n/a    backup.timer backup.service
 ```
