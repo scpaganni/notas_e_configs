@@ -197,3 +197,54 @@ Os _timers_ são semelhantes aos _cron jobs_: automatizam tarefas de rotina. Ao 
 Para verificar as dependências de um _timer_
 
 `# systemctl list-dependencies logrotate.timer`
+
+Criar um _timer_ é um processo em dois estágios: Primeiro é preciso criar o serviço que deseja executar e depois criar e habilitar o _timer_ desse serviço.
+
+Exemplo: criar um serviço de backup do diretório pessoal do usuário em `/mnt/backup` que será executado todos os dias as 13 horas.
+
+`$ systemctl edit --user --full --force backup.service` isso vai criar um arquivo em `~/.config/systemd/user/backup.service`
+
+```
+Unit]
+Description= Fazer backup do diretório pessoal
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/rsync -a /home/usuario /mnt/backup
+```
+
+Confirmar que o serviço pode ser executado manualmente
+
+`$ systemctl daemon-reload --user usuario@host`
+`$ systemctl start --user backup.service`
+
+Se for executado com sucesso, vai ter um diretório _usuario_ em /mnt/backup/:
+
+Agora é preciso criar o _timer_
+
+`$ systemctl edit --user --full --force backup.timer`
+
+```conf
+[Unit]
+Description: Fazer backup do diretório pessoal
+
+[Timer]
+OnCalendar=*-*-* 13:00:00
+Persistent=true
+
+[Install]
+WantedBy=timer.target default.target
+```
+
+Habilitar o serviço
+
+`$ systemctl daemon-reload --user`
+`$ systemctl enable --user --now backup.timer`
+
+Verificar o timer ativo para o usuário
+
+```
+systemctl list-timers --user
+NEXT                        LEFT     LAST PASSED UNIT         ACTIVATES
+Wed 2022-06-08 13:00:00 -04 14h left n/a  n/a    backup.timer backup.service
+```
