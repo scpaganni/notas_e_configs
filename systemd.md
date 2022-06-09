@@ -256,3 +256,54 @@ $ systemctl list-timers --user
 NEXT                        LEFT     LAST PASSED UNIT         ACTIVATES
 Wed 2022-06-08 13:00:00 -04 14h left n/a  n/a    backup.timer backup.service
 ```
+
+### Inicialização do systemd
+
+O _systemd_ inicia seus processos de inicialização em paralelo. Um _target_ é uma coleção de outras unidades do _systemd_ que são agrupadas para uma finalidade específica. Dentro de cada _target_ os processos são iniciados em paralelo.
+Para verificar o tempo de inicialização do sistema
+
+`$ systemd-analyse`
+
+Para ver todos os serviços que foram iniciados juntamente com o tempo que levou para iniciá-los
+
+`$ systemd-analyse blame`
+
+Se você quiser ver quanto tempo levou para cada _target_ iniciar durante a inicialização
+
+`$ systemd-analyze critical-chain`
+
+### Locales do systemd
+
+As configurações de _locale_ afetam como utilitários _awk_, _grep_ e _sort_ exibem sua saída.
+
+Ver a locale padrão configurado
+
+`$ localectl`
+
+Listando os locales instalados no sistema
+
+`$ localectl list-locales`
+
+Alterando o locale 
+
+`# localectl set-locale en_CA.utf8`
+
+Listar o keymap do teclado
+
+`# localectl list-keymaps`
+
+Alterar o keymap do teclado
+
+`# localectl set-keymap ca`
+
+`# localectl set-x11-keymap ca`
+
+`# timedatectl list-timezones`
+
+Desligar o host
+
+`# systemctl poweroff`
+
+Reinicializar o host
+
+`# systemctl reboot`
