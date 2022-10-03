@@ -162,4 +162,8 @@ Para aplicar as configurações é preciso executar
 
 Após criar um template de máquina virtual com `# virt-sysprep -d [dominio] as chaves em `/etc/ssh` são excluídas. Para recriar as chaves é só fazer o seguinte comando:
 
-`# ssh-keygen -A -N ''`
+`# ssh-keygen -A -N`
+
+# Apgar tabela de particionamento de um hd
+
+`# wipefs /dev/sdx`
