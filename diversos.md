@@ -166,4 +166,4 @@ Após criar um template de máquina virtual com `# virt-sysprep -d [dominio] as 
 
 # Apgar tabela de particionamento de um hd
 
-`# wipefs /dev/sdx`
+`# wipefs -a /dev/sdx`

@@ -61,3 +61,7 @@ debsums -c: lista no stdout apenas os arquivos modificados.
 debsums -l: lista os arquivos que não possuem o md5sum.
 debsums -s: lista somente os erros, é uma opção silenciosa.
 ```
+
+Resolvendo problemas de instalação de pacotes quebrados no debian
+
+`sudo apt --fix-broken install`
