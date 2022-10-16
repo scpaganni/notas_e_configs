@@ -1,7 +1,7 @@
 
 Instalação para virtualização no Fedora 
 
-`dnf group install --with-optional virtualization`
+`dnf group install --with-optional virtualization guestfs-tools`
 
 Para instalar vagrant com suporte a libvirt é necessário esses pacotes:
 
@@ -50,4 +50,6 @@ Instalação do Oh-my-zsh e outros plugins
 `git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting`
 
 
+Instalação dos temas para o kitty terminal
 
+`git clone --depth 1 https://github.com/dexpota/kitty-themes.git ~/.config/kitty/kitty-themes`
