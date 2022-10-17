@@ -1,12 +1,22 @@
 Os arquivos de configuração do _systemd_  residem em `/lib/systemd/system/`, este é o local padrão para os arquivos que vem com o sistema operacional. Se precisar modificar alguns desses arquivos ou criar os próprios o diretório indicado é o `/etc/systemd/system`, os arquivos neste diretório tem precedência de execução sobre o `/lib/systemd/system/`.
 
-No diretório `/lib/systemd/system/` há varios tipos de arquivos:
+No diretório `/lib/systemd/system/` há vários tipos de arquivos:
 
 * services
 * socket
 * target
 * mount e automount
 * timer
+* path
+
+Componentes auxiliares do systemd:
+
+* journald: é um daemon responsável pelo registro de eventos, com arquivos binários anexados apenas servindo como seus arquivos de log.
+* networkd: é um daemon responsável para lidar com configurações das interfaces de rede.
+* udev: é um gerenciador de dispositivos para o kernel do Linux, que manipula o diretório / dev e todas as ações do espaço do usuário ao adicionar/remover dispositivos, incluindo o carregamento do firmware.
+* systemd-timedated: é um daemon responsável por controlar configurações relacionadas ao tempo, como a hora do sistema, fuso horário, etc.
+* libudev: é a biblioteca padrão para utilizar udev, permite que aplicativos de terceiros consultem recursos udev.
+* systemd-boot: é um gerenciador de inicialização.
 
 Os arquivos executáveis do systemd ficam em `/lib/systemd/`, porém não interagimos diretamente com eles, para isso há o utilitário `systemctl`.
 
@@ -307,3 +317,9 @@ Desligar o host
 Reinicializar o host
 
 `# systemctl reboot`
+
+Páginas de manual
+
+`$ man systemd.path`
+`$ man systemd.mount`
+`$ man systemd.service`
