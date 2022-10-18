@@ -163,7 +163,7 @@ Para aplicar as configurações é preciso executar
 
 Após criar um template de máquina virtual com `# virt-sysprep -d [dominio] as chaves em `/etc/ssh` são excluídas. Para recriar as chaves é só fazer o seguinte comando:
 
-`# ssh-keygen -A -N`
+`# ssh-keygen -A -N -t`
 
 Apagar tabela de particionamento de um hd
 
@@ -172,3 +172,19 @@ Apagar tabela de particionamento de um hd
 Setando um repositório para fazer push via ssh
 
 `git remote set-url origin git@github.com:seu-usuario/seu-repositorio.git`
+
+Criar um disco dinâmico para máquina virtual
+
+`qemu-img create -f qcow2 <disk-name>.qcow2 <disk-size>`
+
+Converter um disco para o formato dinâmico
+
+```
+mv debian.qcow2 debian.qcow2.bak
+qemu-img convert -O qcow2 debian.qcow2.bak debian.qcow2
+rm debian.qcow2.bak
+```
+
+Criar uma imagem template do Debian para clonar
+
+`sudo virt-sysprep -d debian11 --edit '/etc/ssh/sshd_config: s/#PermitRootLogin prohibit-password/PermitRootLogin yes/' --firstboot-command 'ssh-keygen -A -N -t'`
