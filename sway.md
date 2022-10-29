@@ -5,5 +5,9 @@ Instalação do Sway
 Pacotes necessários para configuração do autotiling e transparencia
 
 `# dnf install python3-pip`
-`$ pithon3 -m pip install --user tendo`
-`$ pithon3 -m pip install --user i3ipc`
+`$ python3 -m pip install --user tendo`
+`$ python3 -m pip install --user i3ipc`
+
+Pacontes do Xfce para instalar junto com o Sawy:
+
+`# ffmpegthumbnailer xarchiver ristretto thunar-archive-plugin thunar-volman xfce4-terminal thunar`

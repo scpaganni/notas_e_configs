@@ -15,7 +15,7 @@ Habilitar autocomplete para o vagrant:
 
 Apps necessários
 
-`dnf install zsh timeshift gnome-tweaks git neovim g++ unrar telegram-desktop lsd`
+`dnf install zsh timeshift gnome-tweaks git neovim g++ unrar telegram-desktop lsd fira-code-fonts powerline-fonts kitty`
 
 Pacotes Opcionais
 
