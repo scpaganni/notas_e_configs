@@ -10,4 +10,6 @@ Pacotes necessários para configuração do autotiling e transparencia
 
 Pacontes do Xfce para instalar junto com o Sawy:
 
-`# ffmpegthumbnailer xarchiver ristretto thunar-archive-plugin thunar-volman xfce4-terminal thunar`
+`# ffmpegthumbnailer xarchiver ristretto thunar-archive-plugin thunar-volman \ 
+xfce4-terminal thunar zathura zathura-plugins-all NetworkManager-tui playerctl \
+qalculate` 
