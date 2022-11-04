@@ -69,7 +69,7 @@ Atualizando o grub:
 
 `# grub2-mkconfig -o /boot/grub2/grub.cfg`
 
-# Comandos para fazer NAT em roteadores Cisco
+Comandos para fazer NAT em roteadores Cisco
 
 Para fazer o NAT em Roteadores Cisco:
 
@@ -89,7 +89,7 @@ Habilitar o NAT propriamente dito:
 
 `ESW1(config)#ip nat inside source list 1 interface fastEthernet 0/0 overload`
 
-# Selinux
+Selinux
 
 `# getsebool -a`
 
@@ -107,7 +107,7 @@ Restaurar o contexto de um arquivo
 
 `# restorecon -vvFR /nome_do_arquivo`
 
-# Packt Tracer
+Packt Tracer
 
 Para Instalar em sistemas x86 Debian based:
 
@@ -130,7 +130,7 @@ sudo apt-get install libnss3-1d:i386 libqt4-qt3support:i386 libssl1.0.0:i386 lib
 * Por fim, aparecerá uma mensagem informando que o Packet Tracer 7.1 foi instalado com sucesso.
 
 
-# Habilitar interface bridge no boxes (Fedora 35)
+Habilitar interface bridge no boxes (Fedora 35)
 
 Para obter a interface de rede `virbr0` é necessário a instalação do pacote `libvirt-daemon-config-network`
 
@@ -140,17 +140,18 @@ e habilitar o socket de rede
 
 `sudo systemctl enable --now virtnetworkd-ro.socket`
 
-# Comandos para localização de arquivos
+Comandos para localização de arquivos
 
 `locate` `which` `whereis` `find`
 
 * O comando `whereis` encontra apenas arquivos executáveis, arquivos de documentação e código fonte
 
-# Comandos para manipulção de textos
+Comandos para manipulação de textos
 
 `grep``tee` `sed` `awk`
 
-# Testar o arquivo de configuração com netplan
+Testar o arquivo de configuração com netplan
+
 A partir do Ubuntu 20.04 alterar a configuração de rede envolve editar a configuração YAML do arquivo localizado em `/etc/netplan`. Como boa prática, devemos sempre fazer um backup do arquivo de configuração atual
 antes de fazer alterações.
 
@@ -162,4 +163,28 @@ Para aplicar as configurações é preciso executar
 
 Após criar um template de máquina virtual com `# virt-sysprep -d [dominio] as chaves em `/etc/ssh` são excluídas. Para recriar as chaves é só fazer o seguinte comando:
 
-`# ssh-keygen -A -N ''`
+`# ssh-keygen -A -N -t`
+
+Apagar tabela de particionamento de um hd
+
+`# wipefs -a /dev/sdx`
+
+Setando um repositório para fazer push via ssh
+
+`git remote set-url origin git@github.com:seu-usuario/seu-repositorio.git`
+
+Criar um disco dinâmico para máquina virtual
+
+`qemu-img create -f qcow2 <disk-name>.qcow2 <disk-size>`
+
+Converter um disco para o formato dinâmico
+
+```
+mv debian.qcow2 debian.qcow2.bak
+qemu-img convert -O qcow2 debian.qcow2.bak debian.qcow2
+rm debian.qcow2.bak
+```
+
+Criar uma imagem template do Debian para clonar
+
+`sudo virt-sysprep -d debian11 --edit '/etc/ssh/sshd_config: s/#PermitRootLogin prohibit-password/PermitRootLogin yes/' --firstboot-command 'ssh-keygen -A -N -t'`

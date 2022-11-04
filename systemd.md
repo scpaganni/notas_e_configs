@@ -1,12 +1,22 @@
 Os arquivos de configuração do _systemd_  residem em `/lib/systemd/system/`, este é o local padrão para os arquivos que vem com o sistema operacional. Se precisar modificar alguns desses arquivos ou criar os próprios o diretório indicado é o `/etc/systemd/system`, os arquivos neste diretório tem precedência de execução sobre o `/lib/systemd/system/`.
 
-No diretório `/lib/systemd/system/` há varios tipos de arquivos:
+No diretório `/lib/systemd/system/` há vários tipos de arquivos:
 
 * services
 * socket
 * target
 * mount e automount
 * timer
+* path
+
+Componentes auxiliares do systemd:
+
+* journald: é um daemon responsável pelo registro de eventos, com arquivos binários anexados apenas servindo como seus arquivos de log.
+* networkd: é um daemon responsável para lidar com configurações das interfaces de rede.
+* udev: é um gerenciador de dispositivos para o kernel do Linux, que manipula o diretório / dev e todas as ações do espaço do usuário ao adicionar/remover dispositivos, incluindo o carregamento do firmware.
+* systemd-timedated: é um daemon responsável por controlar configurações relacionadas ao tempo, como a hora do sistema, fuso horário, etc.
+* libudev: é a biblioteca padrão para utilizar udev, permite que aplicativos de terceiros consultem recursos udev.
+* systemd-boot: é um gerenciador de inicialização.
 
 Os arquivos executáveis do systemd ficam em `/lib/systemd/`, porém não interagimos diretamente com eles, para isso há o utilitário `systemctl`.
 
@@ -80,7 +90,7 @@ Para habilitar na inicialização e startar um serviço:
 
 `# systemctl enable --now httpd`
 
-Quando habilitamos um serviço é criado um link simbólico dentro de `/etc/systemd/system/multi-user.target.wants`que aponta para o arquivo _httpd.service_.
+Quando habilitamos um serviço é criado um link simbólico dentro de `/etc/systemd/system/multi-user.target.wants` que aponta para o arquivo _httpd.service_.
 
 Para desabilitar um serviço da inicialização:
 
@@ -131,13 +141,15 @@ Linha acrescentada na seção [Install] do arquivo `/etc/systemd/system/apache.s
 [Install]
 Alias=httpd.service
 
-Sempre que você modificar ou adicionar um arquivo de serviço, precisará fazer um `# systemctl daemon-reload`
+Sempre que você modificar ou adicionar um arquivo de serviço, precisará fazer um 
+
+`# systemctl daemon-reload`
 
 Agora é preciso desabilitar o serviço e habilita-lo novamente:
 
 `# systemctl disable apache2`
 
-```
+```shell
 # systemctl enable apache2
 Synchronizing state of apache2.service with SysV service script with /lib/systemd/systemd-sysv-install.
 Executing: /lib/systemd/systemd-sysv-install enable apache2
@@ -150,3 +162,164 @@ Observe que foi criado o seguite link `Created symlink /etc/systemd/system/httpd
 Para visualizar todo arquivo de configuração de um serviço podemos usar
 
 `# systemctl cat apache2`
+
+### Targets do systemd
+
+No systemd, um destino é umaunidade que agrupa outras unidades do systemd para uma finalidade específica. As unidades que um destinopode agrupar incluem serviços, caminhos, pontos de montagem, soquetes e até outros destinos.
+
+Para verificar os targets ativos no sistema
+
+`$ systemctl list-units -t target`
+
+Para ver os targets inativos
+
+`$ systemctl list-units -t target --state inactive`
+
+Para verificar as dependências de um target, por exemplo, _graphical.target_
+
+`# systemctl list-dependencies graphical.target`
+
+As opções _--after_ e _--before_ mostram as dependências que devem ser iniciadas antes ou depois do início de um destino. A opção _--after_ indica que o destino deve iniciar após as dependências listadas, e a opção _--before_ indica que o destino deve ser iniciado antes das dependências listadas.
+
+`# systemctl list-dependencies --after network.target`
+
+`# systemctl list-dependencies --before network.target`
+
+Para ver qual _target_ está setado como padrão
+
+`# systemctl get-default`
+
+Setando um novo _target_
+
+`# systemctl set-default multi-user.target`
+
+`# systemctl set-default graphical.target`
+
+Para alterar temporariamente um _target_
+
+`# systemctl isolate multi-user.target`
+
+`# systemctl isolate graphical.target`
+
+### Timers do systemd
+Os _timers_ são semelhantes aos _cron jobs_: automatizam tarefas de rotina. Ao instalar o sistema, por padrão, será criado alguns temporizadores ativos que cuidam de determinadas tarefas administrativas.
+
+`# systemctl list-unit-files -t timer`
+
+`# systemctl list-timers`
+
+Para verificar as dependências de um _timer_
+
+`# systemctl list-dependencies logrotate.timer`
+
+Criar um _timer_ é um processo em dois estágios: Primeiro é preciso criar o serviço que deseja executar e depois criar e habilitar o _timer_ desse serviço.
+
+Exemplo: criar um serviço de backup do diretório pessoal do usuário em `/mnt/backup` que será executado todos os dias as 13 horas.
+
+`$ systemctl edit --user --full --force backup.service` 
+
+Isso vai criar um arquivo em `~/.config/systemd/user/backup.service`
+
+```conf
+[Unit]
+Description= Fazer backup do diretório pessoal
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/rsync -a /home/usuario /mnt/backup
+```
+
+Confirmar que o serviço pode ser executado manualmente
+
+`$ systemctl daemon-reload --user usuario@host`
+
+`$ systemctl start --user backup.service`
+
+Se for executado com sucesso, vai ter um diretório _usuario_ em /mnt/backup/:
+
+Agora é preciso criar o _timer_
+
+`$ systemctl edit --user --full --force backup.timer`
+
+```conf
+[Unit]
+Description: Fazer backup do diretório pessoal
+
+[Timer]
+OnCalendar=*-*-* 13:00:00
+Persistent=true
+
+[Install]
+WantedBy=timer.target default.target
+```
+
+Habilitar o serviço
+
+`$ systemctl daemon-reload --user`
+
+`$ systemctl enable --user --now backup.timer`
+
+Verificar o timer ativo para o usuário
+
+```bash
+$ systemctl list-timers --user
+NEXT                        LEFT     LAST PASSED UNIT         ACTIVATES
+Wed 2022-06-08 13:00:00 -04 14h left n/a  n/a    backup.timer backup.service
+```
+
+### Inicialização do systemd
+
+O _systemd_ inicia seus processos de inicialização em paralelo. Um _target_ é uma coleção de outras unidades do _systemd_ que são agrupadas para uma finalidade específica. Dentro de cada _target_ os processos são iniciados em paralelo.
+Para verificar o tempo de inicialização do sistema
+
+`$ systemd-analyse`
+
+Para ver todos os serviços que foram iniciados juntamente com o tempo que levou para iniciá-los
+
+`$ systemd-analyse blame`
+
+Se você quiser ver quanto tempo levou para cada _target_ iniciar durante a inicialização
+
+`$ systemd-analyze critical-chain`
+
+### Locales do systemd
+
+As configurações de _locale_ afetam como utilitários _awk_, _grep_ e _sort_ exibem sua saída.
+
+Ver a locale padrão configurado
+
+`$ localectl`
+
+Listando os locales instalados no sistema
+
+`$ localectl list-locales`
+
+Alterando o locale 
+
+`# localectl set-locale en_CA.utf8`
+
+Listar o keymap do teclado
+
+`# localectl list-keymaps`
+
+Alterar o keymap do teclado
+
+`# localectl set-keymap ca`
+
+`# localectl set-x11-keymap ca`
+
+`# timedatectl list-timezones`
+
+Desligar o host
+
+`# systemctl poweroff`
+
+Reinicializar o host
+
+`# systemctl reboot`
+
+Páginas de manual
+
+`$ man systemd.path`
+`$ man systemd.mount`
+`$ man systemd.service`

@@ -81,7 +81,7 @@ Criando um container para fazer backup de um volume em outro lugar:
 #### Exemplos de Dockerfile
 
 ```
-# Instalação do Apache 
+# Instalação do Apache
 FROM debian
 
 RUN apt-get update && apt-get install -y apache2 && apt-get clean
@@ -114,9 +114,14 @@ Colocando tag no container
 
 Salvando a imagem do apache em um registry local
 
-` docker image push localhost:5000/myapache:1.0 `
+`docker image push localhost:5000/myapache:1.0 `
 
 Para recuperar a imagem salva
 
-` docker image pull localhost:5000/myapache:1.0`
+`docker image pull localhost:5000/myapache:1.0`
 
+#### Instalação do navidrome
+
+```
+docker run -d --name navidrome --restart=unless-stopped --user $(id -u):$(id -g) -v /mnt/WD2TB/Music:/music -v /home/sergio/.config/navidrome:/data -p 4533:4533 -e ND_LOGLEVEL=info deluan/navidrome:latest
+```
