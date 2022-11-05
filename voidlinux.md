@@ -1,3 +1,31 @@
+Pacotes necessários:
+
+`font-fira-otf font-awesome6  github-cli vscode mpv fzf lsd telegram-desktop`
+
+KDE Apps
+
+`sudo xbps-install dolphin-plugins ark partitionmanager  okular gwenview strawberry ffmpegthumbnailer ffmpegthumbs kdegraphics-thumbnailers`
+
+Instalar o libvirt
+
+`$ sudo xbps-install libvirt virt-manager qemu`
+
+Habilitar o serviço
+
+`ln -s /etc/sv/libvirtd /etc/runit/runsvdir/default`
+
+`ln -s /etc/sv/virtlockd /etc/runit/runsvdir/default`
+
+`ln -s /etc/sv/virtlockd /etc/runit/runsvdir/default`
+
+Inicizalizar o serviço
+
+`$ sudo sv up libvirtd`
+
+`$ sudo sv up virtlockd`
+
+`$ sudo sv up virtlogd`
+
 Alterando o tamanho da janela quando instalado na máquina virtual
 
 `$ xrandr --output Virtual-1 --mode 1920X1080`
@@ -18,6 +46,8 @@ Para instalar repositórios
 Pesquisar pacotes instalados no sistema
 
 `# xbps-query [nome-do-pacote]`
+
+`# xbps-query -l`
 
 Pesquisar pacotes nos repositórios
 
