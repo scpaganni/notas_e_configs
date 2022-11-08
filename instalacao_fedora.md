@@ -1,7 +1,7 @@
 
-Instalação para virtualização no Fedora 
+Instalação para virtualização no Fedora
 
-`dnf group install --with-optional virtualization guestfs-tools`
+`sudo dnf group install --with-optional virtualization guestfs-tools`
 
 Para instalar vagrant com suporte a libvirt é necessário esses pacotes:
 
@@ -15,17 +15,40 @@ Habilitar autocomplete para o vagrant:
 
 Apps necessários
 
-`dnf install zsh timeshift gnome-tweaks git neovim g++ unrar telegram-desktop lsd fira-code-fonts powerline-fonts kitty`
+`dnf install zsh timeshift  git neovim g++ unrar telegram-desktop lsd fira-code-fonts powerline-fonts kitty gh fd-find fzf ripgrep syncthing`
 
-Pacotes Opcionais
+Gnome
 
-`sudo dnf install ncdu node fd-find fzf ripgrep`
+`sudo dnf install gnome-tweaks`
+`
+Pacotes Multimedia
 
 `sudo dnf install install gstreamer1-plugins-bad-* gstreamer1-plugins-good-* gstreamer1-plugins-base gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel`
 
-Pacotes para remover do Kde-plasma
+Pacotes para remover do Kde Plasma
 
-`sudo dnf erase akregator kaddressbook kamera kamoso kcolorpicker kde-connect konversation korganizer kmail kmines kmahjongg elisa kolourpaint kontact kmouth dragon kpat dnfdragora krdc krfb libreoffice-math`
+`sudo dnf erase akregator kaddressbook kamera kamoso kcolorpicker kde-connect konversation korganizer kmail kmines kmahjongg elisa kolourpaint kontact kmouth dragon kpat dnfdragora krdc krfb libreoffice-math elisa-player kmag kmousetool gnome-abrt kfind plasma-browser-integration`
+
+Pacotes para instalar no Kde Plasma
+
+`sudo dnf install strawberry mpv ffmpegthumbnailer ffmpegthumbs`
+
+Instalação do starship terminal
+
+`$ curl -sS https://starship.rs/install.sh | sh`
+
+Instalação do Vscode
+
+```bash
+$ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+```
+
+`$ sudo dnf install code`
+
+Habilitar Rpmfusion
+
+`sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm`
 
 Pacotes Flathub
 
