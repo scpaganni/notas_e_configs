@@ -29,6 +29,10 @@ Pacotes para remover do Kde Plasma
 
 `sudo dnf erase akregator kaddressbook kamera kamoso kcolorpicker kde-connect konversation korganizer kmail kmines kmahjongg elisa kolourpaint kontact kmouth dragon kpat dnfdragora krdc krfb libreoffice-math elisa-player kmag kmousetool gnome-abrt kfind plasma-browser-integration`
 
+Pacotes para remover do Xfce
+
+`sudo dnf erase xfburn parole pragha asunder pidgin claws-mail transmission gnumeric dnfdragora system-config-printer gnome-abrt xfce4-dict`
+
 Pacotes para instalar no Kde Plasma
 
 `sudo dnf install strawberry mpv ffmpegthumbnailer ffmpegthumbs`
