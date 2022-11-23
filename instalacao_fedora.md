@@ -20,7 +20,7 @@ Apps necessários
 Gnome
 
 `sudo dnf install gnome-tweaks`
-`
+
 Pacotes Multimedia
 
 `sudo dnf install install gstreamer1-plugins-bad-* gstreamer1-plugins-good-* gstreamer1-plugins-base gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel`
@@ -75,7 +75,6 @@ Instalação do Oh-my-zsh e outros plugins
 `git clone https://github.com/marlonrichert/zsh-autocomplete ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete`
 
 `git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting`
-
 
 Instalação dos temas para o kitty terminal
 
