@@ -1,4 +1,3 @@
-
 Instalação para virtualização no Fedora
 
 `sudo dnf group install --with-optional virtualization guestfs-tools`
@@ -35,7 +34,7 @@ Pacotes para remover do Xfce
 
 Pacotes para instalar no Kde Plasma
 
-`sudo dnf install strawberry mpv ffmpegthumbnailer ffmpegthumbs`
+`sudo dnf install strawberry mpv ffmpegthumbnailer ffmpegthumbs bismuth`
 
 Instalação do starship terminal
 
