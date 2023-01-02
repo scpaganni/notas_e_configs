@@ -25,6 +25,12 @@ Adicionando arquivos para a Stage Área:
 git add [arquivo]
 ```
 
+Adicionando apenas trechos de um arquivo para fazer commits atômicos
+
+```
+git add -p
+```
+
 Fazendo um commit:
 
 ```
@@ -99,6 +105,12 @@ Pegar dados dos projetos remotos e fazer merge automaticamente:
 git pull [nome-remoto]
 ```
 
+Pegar commits que estão em outra branch para nossa atual
+
+```
+git cherry-pick [hash_commit_do_outro_branch]
+```
+
 Enviando dados dos projetos para os repositorios remotos:
 
 ```
@@ -116,6 +128,12 @@ Removendo e renomeando repositórios remotos:
 ```
 git remote rename [nome] [nome]
 git remote rm [nome]
+```
+
+Remover uma brach do repositório remoto 
+
+```
+git push origin -d branch-name
 ```
 
 Listando tags:
