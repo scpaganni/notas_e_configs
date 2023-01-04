@@ -1,0 +1,43 @@
+## Checklist para Manutenção em Windows
+
+### Análise HD
+
+- [ ] Executar o checkdisk `checkdisk /r`
+- [ ] Após concluir o checkdisk executar o `sfc /scannow`
+- [ ] Reparar arquivos corrompidos ou ausentes do SO `dism /online /Cleanup-image /Restorehealth`
+
+### Eliminação de arquivos temporários
+
+- [ ] Executar limpeza de disco
+- [ ] Instalação e execução do [CCleaner](https://www.ccleaner.com/pt-br/ccleaner/download)
+
+### Remoção de Bloatwares
+
+- [ ] Instalação e execução do [The PC Decrapifier](https://www.pcdecrapifier.com/)
+
+### Remoção de PUP, Vírus e Propagandas
+
+- [ ] Instalação e execução do [AdwCleaner](https://br.malwarebytes.com/adwcleaner/)
+- [ ] Remover qualquer tipo de otimizador do Windows
+- [ ] Verificação online com [Panda Cloud Cleaner](https://www.pandasecurity.com/pt/homeusers/cloud-cleaner/)
+- [ ] Verificação online com [HouseCall](https://www.trendmicro.com/pt_br/forHome/products/housecall.html)
+- [ ] Verificação online com [Eset Scanner](https://www.eset.com/br/antivirus-domestico/online-scanner/)
+- [ ] Instalação da extensão `ublock origin` no Chrome para bloqueio de propaganda
+- [ ] Instalação da extensão [Traffic Light](https://www.bitdefender.com/solutions/trafficlight.html) para bloqueio de páginas maliciosas
+
+### Antivírus recomendados
+
+- [] Instalação e configuração do gratuito [Panda Dome](https://www.pandasecurity.com/pt/homeusers/free-antivirus/)
+- [ ] Instalação e configuração do pago [Kaspersky](https://www.kaspersky.com.br/home-security)
+
+### Desfragmentação do HD
+
+- [ ] Instalação e execução do [Defraggler](https://www.ccleaner.com/defraggler?cc-noredirect=)
+
+### Windows Update
+
+- [ ] Verificar se existe algum problema com o Windows Update e aplicar as correções/atualizações necessárias. Selecione Iniciar  > Configurações  > Atualização e Segurança   > Solucionar problemas > Solucionadores de problemas adicionais. A seguir, em Instale e execute, selecione Windows Update> Execute o solucionador de problemas.
+
+### Visualizador de Eventos
+
+-[ ] Ler os logs do visualizador de eventos para verificar as causas dos erros
