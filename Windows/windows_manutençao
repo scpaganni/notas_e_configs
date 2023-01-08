@@ -41,3 +41,16 @@
 ### Visualizador de Eventos
 
 -[ ] Ler os logs do visualizador de eventos para verificar as causas dos erros
+
+### HDs
+
+- [ ] Verificar, ao menos, uma vez por ano a saúde dos discos rígidos [WDD](https://support.wdc.com/downloads.aspx?lang=en&p=279)
+- [ ] Recuperar espaço livre no disco usando [Treesize Free](https://www.jam-software.com/treesize_free)
+- [ ] Remover drivers antigos da pasta [Driver Store](https://github.com/lostindark/DriverStoreExplorer)
+- [ ] Compactar os arquivos do Windows com: `>compact.exe /CompactOS:query` e `>compact.exe /CompactOS:Always`
+- [ ] Não recomendando, mas se quiser apagar dados da pasta `WinSxS` execute esse comando. Essa pasta é um repositório de componentes para restauração do Windows.`Dism.exe /online /cleanup-Image /StartComponentCleanup /ResetBase`
+- [ ] Apagar os arquivos de instalação dos programas localizados em `c:\Windows\Installer`. Para isso é necessário usar o [PatchCleaner](https://www.homedev.com.au/Free/PatchCleaner)
+
+### Backups
+
+- [ ] Configurar o backup do Windows e certificar que está funcionando sua restauração
