@@ -1,6 +1,10 @@
-Instalação para virtualização no Fedora
+Instalação para virtualização no Fedora (virtmanager e libvirt)
 
 `sudo dnf group install --with-optional virtualization guestfs-tools`
+
+Habilitar a `libvirt` na inicialização do sistema:
+
+`sudo systemctl enable --now libvirtd`
 
 Para instalar vagrant com suporte a libvirt é necessário esses pacotes:
 
@@ -14,7 +18,7 @@ Habilitar autocomplete para o vagrant:
 
 Apps necessários
 
-`dnf install zsh timeshift  git neovim g++ unrar telegram-desktop lsd fira-code-fonts powerline-fonts kitty gh fd-find fzf ripgrep syncthing`
+`dnf install zsh git neovim g++ unrar telegram-desktop lsd fira-code-fonts powerline-fonts kitty gh fd-find fzf ripgrep syncthing bat lsd duf tldr`
 
 Gnome
 
@@ -34,7 +38,7 @@ Pacotes para remover do Xfce
 
 Pacotes para instalar no Kde Plasma
 
-`sudo dnf install strawberry mpv ffmpegthumbnailer ffmpegthumbs bismuth`
+`sudo dnf install strawberry mpv ffmpegthumbnailer ffmpegthumbs`
 
 Instalação do starship terminal
 
@@ -62,8 +66,6 @@ Pacotes Flathub
 Adicionar repositório flathub no sistema:
 
 `sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo`
-
-`flatpak install flathub com.getmailspring.Mailspring`
 
 `flatpak install flathub net.agalwood.Motrix`
 

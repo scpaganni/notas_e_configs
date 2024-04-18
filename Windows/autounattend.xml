@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+	<!--https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILanguage=pt-PT&UserLocale=pt-BR&KeyboardLayout=0416%3A00010416&GeoLocation=32&ProcessorArchitecture=amd64&BypassNetworkCheck=true&ComputerNameMode=Random&TimeZoneMode=Explicit&TimeZone=SA+Western+Standard+Time&PartitionMode=Interactive&WindowsEditionMode=Unattended&WindowsEdition=pro&UserAccountMode=Unattended&AccountName0=scpaganni&AccountPassword0=forever&AccountGroup0=Administrators&AccountName1=&AccountName2=&AccountName3=&AccountName4=&AutoLogonMode=Own&PasswordExpirationMode=Unlimited&LockoutMode=Default&WifiMode=Skip&ExpressSettings=DisableAll&Remove3DViewer=true&RemoveCortana=true&RemoveDevHome=true&RemoveFeedbackHub=true&RemoveGetHelp=true&RemoveInternetExplorer=true&RemoveNews=true&RemoveNotepadClassic=true&RemoveOffice365=true&RemoveOutlook=true&RemovePeople=true&RemoveQuickAssist=true&RemoveSkype=true&RemoveSolitaire=true&RemoveTeams=true&RemoveToDo=true&RemoveXboxApps=true&RemoveYourPhone=true&SystemScript0=&SystemScriptType0=Cmd&SystemScript1=&SystemScriptType1=Ps1&SystemScript2=&SystemScriptType2=Reg&SystemScript3=&SystemScriptType3=Vbs&DefaultUserScript0=&DefaultUserScriptType0=Reg&FirstLogonScript0=&FirstLogonScriptType0=Cmd&FirstLogonScript1=&FirstLogonScriptType1=Ps1&FirstLogonScript2=&FirstLogonScriptType2=Reg&FirstLogonScript3=&FirstLogonScriptType3=Vbs&UserOnceScript0=&UserOnceScriptType0=Cmd&UserOnceScript1=&UserOnceScriptType1=Ps1&UserOnceScript2=&UserOnceScriptType2=Reg&UserOnceScript3=&UserOnceScriptType3=Vbs&WdacMode=Skip-->
+	<settings pass="offlineServicing"></settings>
+	<settings pass="windowsPE">
+		<component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<SetupUILanguage>
+				<UILanguage>pt-PT</UILanguage>
+			</SetupUILanguage>
+			<InputLocale>0416:00010416</InputLocale>
+			<SystemLocale>pt-BR</SystemLocale>
+			<UILanguage>pt-PT</UILanguage>
+			<UserLocale>pt-BR</UserLocale>
+		</component>
+		<component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<UserData>
+				<ProductKey>
+					<Key>VK7JG-NPHTM-C97JM-9MPGT-3V66T</Key>
+				</ProductKey>
+				<AcceptEula>true</AcceptEula>
+			</UserData>
+		</component>
+	</settings>
+	<settings pass="generalize"></settings>
+	<settings pass="specialize">
+		<component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<RunSynchronous>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>1</Order>
+					<Path>reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" /v BypassNRO /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>2</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.Microsoft3DViewer"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>3</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.549981C3F5F10"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>4</Order>
+					<Path>reg.exe delete "HKLM\SOFTWARE\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe\DevHomeUpdate" /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>5</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.WindowsFeedbackHub"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>6</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.GetHelp"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>7</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-caps.txt" echo Browser.InternetExplorer"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>8</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.BingNews"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>9</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-caps.txt" echo Microsoft.Windows.Notepad"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>10</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.MicrosoftOfficeHub"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>11</Order>
+					<Path>reg.exe delete "HKLM\SOFTWARE\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe\OutlookUpdate" /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>12</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.People"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>13</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-caps.txt" echo App.Support.QuickAssist"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>14</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo MicrosoftCorporationII.QuickAssist"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>15</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.SkypeApp"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>16</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.MicrosoftSolitaireCollection"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>17</Order>
+					<Path>reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Communications" /v ConfigureChatAutoInstall /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>18</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.Todos"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>19</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.Xbox.TCUI"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>20</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.XboxApp"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>21</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.XboxGameOverlay"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>22</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.XboxGamingOverlay"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>23</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.XboxIdentityProvider"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>24</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.XboxSpeechToTextOverlay"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>25</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.GamingApp"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>26</Order>
+					<Path>cmd.exe /c "&gt;&gt;"%TEMP%\remove-packages.txt" echo Microsoft.YourPhone"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>27</Order>
+					<Path>powershell.exe -NoProfile -Command "Get-AppxProvisionedPackage -Online | where DisplayName -In (Get-Content $env:TEMP\remove-packages.txt ) | Remove-AppxProvisionedPackage -AllUsers -Online *&gt;&amp;1 &gt;&gt; $env:TEMP\remove-packages.log;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>28</Order>
+					<Path>powershell.exe -NoProfile -Command "Get-WindowsCapability -Online | where {($_.Name -split '~')[0] -in (Get-Content $env:TEMP\remove-caps.txt ) } | Remove-WindowsCapability -Online *&gt;&amp;1 &gt;&gt; $env:TEMP\remove-caps.log;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>29</Order>
+					<Path>cmd.exe /c "&gt;&gt;"C:\Users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml" echo ^&lt;LayoutModificationTemplate Version="1" xmlns="http://schemas.microsoft.com/Start/2014/LayoutModification"^&gt;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>30</Order>
+					<Path>cmd.exe /c "&gt;&gt;"C:\Users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml" echo ^&lt;LayoutOptions StartTileGroupCellWidth="6" /^&gt;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>31</Order>
+					<Path>cmd.exe /c "&gt;&gt;"C:\Users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml" echo ^&lt;DefaultLayoutOverride^&gt;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>32</Order>
+					<Path>cmd.exe /c "&gt;&gt;"C:\Users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml" echo ^&lt;StartLayoutCollection^&gt;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>33</Order>
+					<Path>cmd.exe /c "&gt;&gt;"C:\Users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml" echo ^&lt;StartLayout GroupCellWidth="6" xmlns="http://schemas.microsoft.com/Start/2014/FullDefaultLayout" /^&gt;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>34</Order>
+					<Path>cmd.exe /c "&gt;&gt;"C:\Users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml" echo ^&lt;/StartLayoutCollection^&gt;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>35</Order>
+					<Path>cmd.exe /c "&gt;&gt;"C:\Users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml" echo ^&lt;/DefaultLayoutOverride^&gt;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>36</Order>
+					<Path>cmd.exe /c "&gt;&gt;"C:\Users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml" echo ^&lt;/LayoutModificationTemplate^&gt;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>37</Order>
+					<Path>reg.exe add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Start" /v ConfigureStartPins /t REG_SZ /d "{ \"pinnedList\": [] }" /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>38</Order>
+					<Path>reg.exe add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Start" /v ConfigureStartPins_ProviderSet /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>39</Order>
+					<Path>reg.exe add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Start" /v ConfigureStartPins_WinningProvider /t REG_SZ /d B5292708-1619-419B-9923-E5D9F3925E71 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>40</Order>
+					<Path>reg.exe add "HKLM\SOFTWARE\Microsoft\PolicyManager\providers\B5292708-1619-419B-9923-E5D9F3925E71\default\Device\Start" /v ConfigureStartPins /t REG_SZ /d "{ \"pinnedList\": [] }" /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>41</Order>
+					<Path>reg.exe add "HKLM\SOFTWARE\Microsoft\PolicyManager\providers\B5292708-1619-419B-9923-E5D9F3925E71\default\Device\Start" /v ConfigureStartPins_LastWrite /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>42</Order>
+					<Path>net.exe accounts /maxpwage:UNLIMITED</Path>
+				</RunSynchronousCommand>
+			</RunSynchronous>
+		</component>
+		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<TimeZone>SA Western Standard Time</TimeZone>
+		</component>
+	</settings>
+	<settings pass="auditSystem"></settings>
+	<settings pass="auditUser"></settings>
+	<settings pass="oobeSystem">
+		<component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<InputLocale>0416:00010416</InputLocale>
+			<SystemLocale>pt-BR</SystemLocale>
+			<UILanguage>pt-PT</UILanguage>
+			<UserLocale>pt-BR</UserLocale>
+		</component>
+		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<UserAccounts>
+				<LocalAccounts>
+					<LocalAccount wcm:action="add">
+						<Name>scpaganni</Name>
+						<Group>Administrators</Group>
+						<Password>
+							<Value>forever</Value>
+							<PlainText>true</PlainText>
+						</Password>
+					</LocalAccount>
+				</LocalAccounts>
+			</UserAccounts>
+			<AutoLogon>
+				<Username>scpaganni</Username>
+				<Enabled>true</Enabled>
+				<LogonCount>1</LogonCount>
+				<Password>
+					<Value>forever</Value>
+					<PlainText>true</PlainText>
+				</Password>
+			</AutoLogon>
+			<OOBE>
+				<ProtectYourPC>3</ProtectYourPC>
+				<HideEULAPage>true</HideEULAPage>
+				<HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+			</OOBE>
+			<FirstLogonCommands>
+				<SynchronousCommand wcm:action="add">
+					<Order>1</Order>
+					<CommandLine>reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoLogonCount /t REG_DWORD /d 0 /f</CommandLine>
+				</SynchronousCommand>
+			</FirstLogonCommands>
+		</component>
+	</settings>
+</unattend>
