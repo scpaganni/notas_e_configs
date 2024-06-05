@@ -26,19 +26,35 @@ Gnome
 
 Pacotes Multimedia
 
-`sudo dnf install install gstreamer1-plugins-bad-* gstreamer1-plugins-good-* gstreamer1-plugins-base gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel`
+`sudo dnf install gstreamer1-plugins-bad-* gstreamer1-plugins-good-* gstreamer1-plugins-base gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel`
 
 Pacotes para remover do Kde Plasma
 
 `sudo dnf erase akregator kaddressbook kamera kamoso kcolorpicker kde-connect konversation korganizer kmail kmines kmahjongg elisa kolourpaint kontact kmouth dragon kpat dnfdragora krdc krfb libreoffice-math elisa-player kmag kmousetool gnome-abrt kfind plasma-browser-integration`
 
-Pacotes para remover do Xfce
+Instalação da Impressora Epson:
 
-`sudo dnf erase xfburn parole pragha asunder pidgin claws-mail transmission gnumeric dnfdragora system-config-printer gnome-abrt xfce4-dict`
+`sudo dnf install epson-inkjet-printer-escpr`
+
+Instalação do Libreoffice:
+
+`sudo dnf install libreoffice libreoffice-langpack-pt-BR`
+
+Instalação do Calibre:
+
+`sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin`
+
+Instalação do Chrome:
+
+`sudo dnf install google-chrome-stable`
 
 Pacotes para instalar no Kde Plasma
 
 `sudo dnf install strawberry mpv ffmpegthumbnailer ffmpegthumbs`
+
+Pacotes para remover do Xfce
+
+`sudo dnf erase xfburn parole pragha asunder pidgin claws-mail transmission gnumeric dnfdragora system-config-printer gnome-abrt xfce4-dict`
 
 Instalação do starship terminal
 
@@ -70,6 +86,10 @@ Adicionar repositório flathub no sistema:
 `flatpak install flathub net.agalwood.Motrix`
 
 `flatpak install flathub com.bitwarden.desktop`
+
+`flatpak install flathub io.freetubeapp.FreeTube`
+
+`flatpak install flathub com.brave.Browser`
 
 Instalação do Oh-my-zsh e outros plugins
 
