@@ -4,7 +4,7 @@ Habilitar Rpmfusion
 
 Pacotes para remover do Kde Plasma
 
-`sudo dnf erase akregator kaddressbook kamera kamoso kcolorpicker kde-connect konversation korganizer kmail kmines kmahjongg elisa kolourpaint kontact kmouth dragon kpat dnfdragora krdc krfb libreoffice-math elisa-player kmag kmousetool gnome-abrt kfind plasma-browser-integration`
+`sudo dnf remove akregator kaddressbook kamera kamoso kcolorpicker kde-connect konversation korganizer kmail kmines kmahjongg elisa kolourpaint kontact kmouth dragon kpat dnfdragora krdc krfb libreoffice-math elisa-player kmag kmousetool gnome-abrt kfind plasma-browser-integration`
 
 Pacotes para instalar no Kde Plasma
 
@@ -84,6 +84,10 @@ Adicionar repositório flathub no sistema:
 `sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo`
 
 `flatpak install flathub net.agalwood.Motrix`
+
+`flatpak install flathub rocks.koreader.KOReader`
+
+`flatpak install flathub md.obsidian.Obsidian`
 
 `flatpak install flathub com.bitwarden.desktop`
 
